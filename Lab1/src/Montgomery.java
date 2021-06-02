@@ -44,42 +44,4 @@ public class Montgomery {
         return x1;
     }
 
-    // Example input: 68 57 109 128
-    public static void main(String[] args) throws IOException {
-        // Prompt user on standard output, parse standard input
-        BufferedReader in = new BufferedReader(new InputStreamReader(System.in, "US-ASCII"));
-        System.out.print("Number x: ");
-        BigInteger x = new BigInteger(in.readLine());
-        System.out.print("Operation (\"times\" or \"pow\"): ");
-        String oper = in.readLine();
-        System.out.print("b = ");
-        BigInteger y = new BigInteger(in.readLine());
-        System.out.print("Modulus: ");      // непарне число
-        BigInteger N = new BigInteger(in.readLine());
-        System.out.print("R: ");            // степінь 2
-        BigInteger R = new BigInteger(in.readLine());
-        System.out.println();
-
-        BigInteger R1 = R;
-        int pow = -1;
-        while (R1.compareTo(BigInteger.ZERO) > 0) {
-            R1 = R1.divide(TWO);
-            pow++;
-        }
-
-        BigInteger res;
-        BigInteger res_real;
-
-        if (oper.equals("times")) {
-            res = multiply(x, y, R, N, pow);
-            res_real = x.multiply(y).mod(N);
-        } else if (oper.equals("pow")) {
-            res = pow(x, y, R, N, pow);
-            res_real = x.modPow(y, N);
-        } else
-            throw new IllegalArgumentException("Invalid operation: " + oper);
-        System.out.printf("%d%s%d mod %d", x, oper.equals("times") ? " * " : "^", y, N);
-        System.out.println(" = " + res);
-        System.out.println("Real result = " + res_real);
-    }
 }
